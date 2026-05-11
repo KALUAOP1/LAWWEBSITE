@@ -43,8 +43,12 @@ select {
   font: inherit;
 }
 
+.app-shell {
+  overflow-x: hidden;
+}
+
 .app-shell.menu-open {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .page-glow {
@@ -670,6 +674,18 @@ h3 {
   color: var(--ink-dark);
 }
 
+.contact-form .button-secondary {
+  border-color: rgba(63, 47, 31, 0.24);
+  background: rgba(255, 252, 246, 0.82);
+  color: var(--ink-dark);
+}
+
+.contact-form .button-secondary:hover,
+.contact-form .button-secondary:focus-visible {
+  border-color: rgba(139, 93, 36, 0.4);
+  background: rgba(255, 248, 238, 0.96);
+}
+
 .contact-form label {
   display: grid;
   gap: 8px;
@@ -712,15 +728,15 @@ h3 {
 
 .floating-bar {
   position: fixed;
-  right: 18px;
-  bottom: 18px;
+  right: 16px;
+  bottom: 16px;
   z-index: 25;
   display: flex;
-  gap: 10px;
-  padding: 8px;
-  border: 1px solid rgba(215, 191, 157, 0.2);
+  gap: 8px;
+  padding: 6px;
+  border: 1px solid rgba(215, 191, 157, 0.16);
   border-radius: 999px;
-  background: rgba(10, 17, 25, 0.92);
+  background: rgba(10, 17, 25, 0.9);
   box-shadow: var(--shadow);
   backdrop-filter: blur(14px);
 }
@@ -728,18 +744,46 @@ h3 {
 .floating-bar a {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
   padding: 0;
   border-radius: 50%;
-  background: rgba(255, 248, 236, 0.06);
-  font-size: 1.15rem;
-  font-weight: 700;
+  border: 1px solid rgba(255, 248, 236, 0.08);
+  background: rgba(255, 248, 236, 0.04);
+  color: #f4ead9;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
-.floating-bar a:last-child {
-  background: rgba(37, 211, 102, 0.18);
-  color: #dfffe9;
+.floating-bar a:hover,
+.floating-bar a:focus-visible {
+  transform: translateY(-1px);
+}
+
+.floating-action svg {
+  width: 22px;
+  height: 22px;
+}
+
+.floating-action-call {
+  color: #f2e5cf;
+}
+
+.floating-action-call:hover,
+.floating-action-call:focus-visible {
+  background: rgba(255, 248, 236, 0.1);
+  border-color: rgba(215, 191, 157, 0.22);
+}
+
+.floating-action-whatsapp {
+  background: rgba(37, 211, 102, 0.16);
+  border-color: rgba(37, 211, 102, 0.24);
+  color: #ecfff2;
+}
+
+.floating-action-whatsapp:hover,
+.floating-action-whatsapp:focus-visible {
+  background: rgba(37, 211, 102, 0.24);
+  border-color: rgba(37, 211, 102, 0.34);
 }
 
 @media (max-width: 1080px) {
@@ -1042,8 +1086,7 @@ h3 {
   }
 
   .hero-panel-head,
-  .form-actions,
-  .floating-bar {
+  .form-actions {
     flex-direction: column;
     align-items: stretch;
   }
@@ -1052,14 +1095,20 @@ h3 {
     right: 12px;
     left: auto;
     bottom: 10px;
-    gap: 8px;
-    padding: 6px;
+    gap: 7px;
+    padding: 5px;
     border-radius: 999px;
+    flex-direction: row;
+    align-items: center;
   }
 
   .floating-bar a {
     width: 40px;
     height: 40px;
-    font-size: 1rem;
+  }
+
+  .floating-action svg {
+    width: 21px;
+    height: 21px;
   }
 }
