@@ -21,7 +21,7 @@ export default function Layout() {
       <div className="site-shell">
         <header className="topbar">
           <NavLink className="brand" to="/" onClick={() => setMenuOpen(false)}>
-            <span className="brand-mark">AS</span>
+            <span className="brand-mark">AD</span>
             <span className="brand-text">
               <strong>{siteData.advocateName}</strong>
               <span>{siteData.title}</span>
