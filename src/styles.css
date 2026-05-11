@@ -82,9 +82,9 @@ select {
   top: 12px;
   z-index: 20;
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 14px;
+  gap: 18px;
   margin-top: 12px;
   padding: 12px 18px;
   border: 1px solid var(--line);
@@ -94,10 +94,18 @@ select {
   box-shadow: var(--shadow);
 }
 
+.topbar-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+}
+
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 
 .brand-mark {
@@ -131,10 +139,23 @@ select {
 
 .nav {
   display: flex;
-  justify-content: center;
-  gap: 16px;
-  font-size: 0.9rem;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 22px;
+  font-size: 1rem;
   font-weight: 600;
+}
+
+.topbar > .nav {
+  justify-self: end;
+}
+
+.topbar > .nav .button {
+  margin-left: 6px;
+}
+
+.nav-drawer-cta {
+  display: none;
 }
 
 .nav-link {
@@ -152,7 +173,12 @@ select {
   display: none;
   flex-direction: column;
   gap: 6px;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  min-height: 44px;
   border: 0;
+  border-radius: 14px;
   background: transparent;
   padding: 0;
 }
@@ -175,6 +201,7 @@ select {
   cursor: pointer;
   font-weight: 700;
   font-size: 0.95rem;
+  white-space: nowrap;
   transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease;
 }
 
@@ -690,61 +717,77 @@ h3 {
   z-index: 25;
   display: flex;
   gap: 10px;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid rgba(215, 191, 157, 0.2);
-  border-radius: 18px;
+  border-radius: 999px;
   background: rgba(10, 17, 25, 0.92);
   box-shadow: var(--shadow);
   backdrop-filter: blur(14px);
 }
 
 .floating-bar a {
-  padding: 12px 16px;
-  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border-radius: 50%;
   background: rgba(255, 248, 236, 0.06);
-  font-size: 0.92rem;
+  font-size: 1.15rem;
   font-weight: 700;
 }
 
 .floating-bar a:last-child {
-  background: linear-gradient(135deg, var(--gold), var(--gold-deep));
-  color: #fff8ee;
+  background: rgba(37, 211, 102, 0.18);
+  color: #dfffe9;
 }
 
 @media (max-width: 1080px) {
   .topbar {
-    grid-template-columns: auto auto;
-    grid-template-areas:
-      "brand toggle"
-      "nav nav"
-      "cta cta";
-  }
-
-  .brand {
-    grid-area: brand;
+    position: sticky;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+    gap: 12px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    backdrop-filter: none;
+    box-shadow: none;
   }
 
   .menu-toggle {
-    grid-area: toggle;
     display: inline-flex;
-    margin-left: auto;
   }
 
   .nav {
-    grid-area: nav;
     display: none;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    padding-top: 6px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    z-index: 30;
+    min-width: 220px;
+    max-width: min(280px, calc(100vw - 24px));
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: rgba(12, 21, 31, 0.96);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
   }
 
   .app-shell.menu-open .nav {
     display: flex;
   }
 
-  .button-nav {
-    grid-area: cta;
-    justify-self: start;
+  .topbar > .nav {
+    justify-self: auto;
+  }
+
+  .topbar > .nav .button {
+    margin-left: 0;
   }
 
   .hero,
@@ -772,21 +815,225 @@ h3 {
     width: min(100% - 18px, 1220px);
   }
 
-  .topbar,
+  .topbar {
+    top: 8px;
+    gap: 10px;
+  }
+
+  .topbar-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: rgba(12, 21, 31, 0.92);
+    backdrop-filter: blur(16px);
+    box-shadow: var(--shadow);
+  }
+
   .hero-copy,
   .hero-panel,
   .section,
   .contact-form {
-    padding: 22px;
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .brand {
+    gap: 8px;
+    flex: 1 1 auto;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    font-size: 0.96rem;
+  }
+
+  .brand-text {
+    min-width: 0;
+    gap: 1px;
+    overflow: hidden;
+  }
+
+  .brand-text strong {
+    font-size: 0.72rem;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .brand-text span {
+    font-size: 0.56rem;
+    line-height: 1.15;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .menu-toggle {
+    gap: 5px;
+    width: 40px;
+    min-height: 40px;
+    border-radius: 14px;
+    flex: 0 0 auto;
+  }
+
+  .menu-toggle span {
+    width: 22px;
+  }
+
+  .nav {
+    gap: 8px;
+    font-size: 0.82rem;
+    margin-top: 0;
+    padding: 14px 14px 10px;
+    border-radius: 18px;
+    width: min(220px, calc(100vw - 24px));
+    align-items: stretch;
+  }
+
+  .nav-link {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 8px 4px;
+  }
+
+  .nav-drawer-cta {
+    display: inline-flex;
+    width: 100%;
+    margin-top: 6px;
+    min-height: 34px;
+    font-size: 0.82rem;
+    justify-self: stretch;
+  }
+
+  .section-heading {
+    margin-bottom: 18px;
+  }
+
+  .trust-strip {
+    padding: 16px 18px;
+    border-radius: 22px;
+    gap: 14px;
+  }
+
+  .practice-card,
+  .experience-card,
+  .credentials-card,
+  .process-timeline article,
+  .faq-list details,
+  .consultation-sidebar article,
+  .law-class-card {
+    padding: 16px;
+    border-radius: 20px;
+  }
+
+  .law-class-card h3,
+  h3 {
+    font-size: 1.4rem;
+  }
+
+  .hero-text,
+  .section-lead,
+  .practice-card p,
+  .experience-card p,
+  .credentials-card li,
+  .process-timeline p,
+  .faq-list p,
+  .consultation-sidebar p,
+  .form-status,
+  .contact-form label,
+  .contact-quick-grid span,
+  .trust-strip p,
+  .law-class-card p,
+  .law-class-meta p {
+    font-size: 0.9rem;
+    line-height: 1.62;
   }
 
   h1 {
     max-width: 100%;
-    font-size: clamp(2.8rem, 12vw, 4.6rem);
+    font-size: clamp(2.2rem, 10vw, 3.2rem);
   }
 
   h2 {
-    font-size: clamp(2.1rem, 10vw, 3rem);
+    font-size: clamp(1.7rem, 8vw, 2.4rem);
+  }
+
+  .eyebrow,
+  .card-kicker,
+  .consultation-sidebar span,
+  .trust-strip span {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+  }
+
+  .hero {
+    gap: 18px;
+    padding: 26px 0 18px;
+  }
+
+  .hero-actions,
+  .form-actions {
+    gap: 10px;
+    margin-top: 20px;
+  }
+
+  .hero-metrics {
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .hero-metrics article {
+    padding: 12px;
+    border-radius: 16px;
+  }
+
+  .hero-metrics strong {
+    font-size: 1.2rem;
+  }
+
+  .hero-metrics span,
+  .status-pill,
+  .contact-quick-grid strong,
+  .contact-quick-grid a {
+    font-size: 0.84rem;
+  }
+
+  .section {
+    margin-top: 18px;
+  }
+
+  .practice-grid,
+  .experience-grid,
+  .process-timeline,
+  .consultation-layout,
+  .form-grid,
+  .faq-list {
+    gap: 14px;
+  }
+
+  .law-class-meta {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .contact-form input,
+  .contact-form textarea,
+  .contact-form select {
+    padding: 12px 14px;
+    border-radius: 14px;
   }
 
   .hero-metrics,
@@ -802,8 +1049,17 @@ h3 {
   }
 
   .floating-bar {
-    right: 10px;
-    left: 10px;
+    right: 12px;
+    left: auto;
     bottom: 10px;
+    gap: 8px;
+    padding: 6px;
+    border-radius: 999px;
+  }
+
+  .floating-bar a {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
   }
 }

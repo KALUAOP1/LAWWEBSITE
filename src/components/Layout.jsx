@@ -20,24 +20,26 @@ export default function Layout() {
 
       <div className="site-shell">
         <header className="topbar">
-          <NavLink className="brand" to="/" onClick={() => setMenuOpen(false)}>
-            <span className="brand-mark">AD</span>
-            <span className="brand-text">
-              <strong>{siteData.advocateName}</strong>
-              <span>{siteData.title}</span>
-            </span>
-          </NavLink>
+          <div className="topbar-head">
+            <NavLink className="brand" to="/" onClick={() => setMenuOpen(false)}>
+              <span className="brand-mark">AD</span>
+              <span className="brand-text">
+                <strong>{siteData.advocateName}</strong>
+                <span>{siteData.title}</span>
+              </span>
+            </NavLink>
 
-          <button
-            className="menu-toggle"
-            type="button"
-            aria-expanded={menuOpen}
-            aria-label="Open navigation"
-            onClick={() => setMenuOpen((current) => !current)}
-          >
-            <span></span>
-            <span></span>
-          </button>
+            <button
+              className="menu-toggle"
+              type="button"
+              aria-expanded={menuOpen}
+              aria-label="Open navigation"
+              onClick={() => setMenuOpen((current) => !current)}
+            >
+              <span></span>
+              <span></span>
+            </button>
+          </div>
 
           <nav className="nav">
             {navItems.map((item) => (
@@ -51,22 +53,26 @@ export default function Layout() {
                 {item.label}
               </NavLink>
             ))}
+            <NavLink
+              className="button button-secondary nav-drawer-cta"
+              to="/contact"
+              onClick={() => setMenuOpen(false)}
+            >
+              Book Now
+            </NavLink>
           </nav>
-
-          <NavLink className="button button-nav" to="/contact" onClick={() => setMenuOpen(false)}>
-            Book Now
-          </NavLink>
         </header>
 
         <Outlet />
       </div>
 
       <div className="floating-bar">
-        <a href={siteData.phoneHref}>Call Advocate</a>
-        <a href={siteData.whatsappHref} target="_blank" rel="noreferrer">
-          WhatsApp
+        <a href={siteData.phoneHref} aria-label="Call Advocate" title="Call Advocate">
+          <span aria-hidden="true">📞</span>
         </a>
-        <NavLink to="/contact">Book Consultation</NavLink>
+        <a href={siteData.whatsappHref} target="_blank" rel="noreferrer">
+          <span aria-hidden="true">💬</span>
+        </a>
       </div>
     </div>
   );
